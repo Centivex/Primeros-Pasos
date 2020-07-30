@@ -1,0 +1,62 @@
+
+movimiento.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+caminar_derecha
+  rotate: false
+  xy: 2, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 1
+caminar_derecha
+  rotate: false
+  xy: 2, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 3
+caminar_derecha
+  rotate: false
+  xy: 45, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 2
+caminar_derecha
+  rotate: false
+  xy: 88, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 4
+caminar_izquierda
+  rotate: false
+  xy: 131, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 1
+caminar_izquierda
+  rotate: false
+  xy: 131, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 3
+caminar_izquierda
+  rotate: false
+  xy: 174, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 2
+caminar_izquierda
+  rotate: false
+  xy: 217, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: 4
