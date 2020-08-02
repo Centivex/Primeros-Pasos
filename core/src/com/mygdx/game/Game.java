@@ -33,11 +33,11 @@ public class Game extends ApplicationAdapter {
 
 		for(int i=0;i<4;i++){
 
-			movDerecha[i]= (textAtlas.findRegion("caminar_derecha_"+(i+1)));
+			movDerecha[i]= (textAtlas.findRegion("caminar_derecha",i+1));
 			System.out.println("i es: "+i);
 		}
 
-		anim= new Animation(1/15f, movDerecha);
+		anim= new Animation(1f, movDerecha);
 
 		//para pillar completo el atlas:
 		//anim= new Animation(1/15f, textAtlas.getRegions());
@@ -49,7 +49,7 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		tiempoAnim += Gdx.graphics.getDeltaTime();
-		batch.draw((TextureRegion) anim.getKeyFrame(tiempoAnim,true),0,0);
+		batch.draw((TextureRegion) anim.getKeyFrame(tiempoAnim,false),0,0);
 		batch.end();
 	}
 
