@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
@@ -14,9 +15,9 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 public class Game extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch;
 
-	private Texture textPlayer;
-	private Sprite spritPlayer;
-	private float posx, posy;
+	private OrthographicCamera cam;
+	private Texture textFondo;
+	private Sprite spritFondo;
 
 
 
@@ -28,18 +29,19 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+
+		cam= new OrthographicCamera(1280,720);
 
 
 
-		textPlayer= new Texture("Player/caminar_abajo_1.png");
-		spritPlayer= new Sprite(textPlayer);
+		textFondo= new Texture("fondo.jpg");
+		textFondo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-		posx= w/2 -spritPlayer.getWidth()/2;
-		posy=h/2 - spritPlayer.getHeight()/2;
 
-		spritPlayer.setPosition(posx, posy);
+
+		spritFondo= new Sprite(textFondo);
+		spritFondo.setOrigin(0,0);
+		spritFondo.setPosition(-spritFondo.getWidth()/2,-spritFondo.getHeight()/2);
 
 
 		Gdx.input.setInputProcessor(this);
@@ -51,38 +53,18 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		//teclado
+		batch.setProjectionMatrix(cam.combined);
 
-//		if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-//			if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-//				spritPlayer.translateX(-1f);
-//			else
-//				spritPlayer.translateX(-10.0f);
-//		}
-//		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-//			if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-//				spritPlayer.translateX(1f);
-//			else
-//				spritPlayer.translateX(10.0f);
-//		}
-
-		//--------------------------------------------------------------------------------------------------------------
-		//raton
-
-//		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-//			spritPlayer.setPosition(Gdx.input.getX() - spritPlayer.getWidth()/2,
-//					Gdx.graphics.getHeight() - Gdx.input.getY() - spritPlayer.getHeight()/2);
-//		}
-//		if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
-//			spritPlayer.setPosition(Gdx.graphics.getWidth()/2 -spritPlayer.getWidth()/2,
-//					Gdx.graphics.getHeight()/2 - spritPlayer.getHeight()/2);
-//		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+			cam.translate(10,0);
+		}else  if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			cam.translate(-10,0);
+		}
 
 
+		cam.update();
 		batch.begin();
-		spritPlayer.setPosition(posx,posy);
-		spritPlayer.draw(batch);
-
+		spritFondo.draw(batch);
 		batch.end();
 	}
 
@@ -92,7 +74,7 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		textPlayer.dispose();
+		textFondo.dispose();
 
 	}
 
@@ -102,15 +84,7 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		float moveAmount = 1.0f;
-		if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-			moveAmount = 10.0f;
-
-		if(keycode == Input.Keys.LEFT)
-			posx-=moveAmount;
-		if(keycode == Input.Keys.RIGHT)
-			posx+=moveAmount;
-		return true;
+		return false;
 	}
 
 	@Override
@@ -125,14 +99,6 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(button == Input.Buttons.LEFT){
-			posx = screenX - spritPlayer.getWidth()/2;
-			posy = Gdx.graphics.getHeight() - screenY - spritPlayer.getHeight()/2;
-		}
-		if(button == Input.Buttons.RIGHT){
-			posx = Gdx.graphics.getWidth()/2 - spritPlayer.getWidth()/2;
-			posy = Gdx.graphics.getHeight()/2 - spritPlayer.getHeight()/2;
-		}
 		return false;
 	}
 
