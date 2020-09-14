@@ -13,21 +13,56 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Timer;
 
 
 public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
+	//SpriteBatch batch;
+	//private OrthographicCamera cam;
 
-	//private Sound sonido;
-	//para guardar algo que tenga grandes datos
-	//private long idSonidoContinua;
+	public  class MyActor extends Actor{
 
-	private Music musica;
+		Texture textPlayer= new Texture("Player/caminar_abajo_1.png");
 
-	private OrthographicCamera cam;
+		Sprite spritPlayer= new Sprite(textPlayer);
 
+		float actorx=0;
+
+		public MyActor(){
+			//necesario para cliclar encima de el
+			//setBounds(actorx,0,textPlayer.getWidth(),textPlayer.getHeight());
+
+			/*addListener(new InputListener(){
+				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+					((MyActor)event.getTarget()).started = true;
+					return true;
+				}
+			});*/
+
+		}
+
+
+
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			spritPlayer.draw(batch);
+			//batch.draw(textPlayer,actorx,0);
+		}
+
+		@Override
+		public void act(float delta) {
+
+			if(Gdx.input.isKeyPressed(Input.Keys.A)){
+				actorx=100;
+				spritPlayer.translateX(actorx);
+			}
+
+		}
+	}
+
+	private Stage stage;
 
 
 
@@ -38,48 +73,19 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+//		batch = new SpriteBatch();
+//		cam= new OrthographicCamera(1280,720);
 
-		cam= new OrthographicCamera(1280,720);
-
-		//sonido= Gdx.audio.newSound(Gdx.files.internal("sonido/cancion.mp3"));
-		musica=Gdx.audio.newMusic(Gdx.files.internal("sonido/cancion.mp3"));
-
-		//play
-		//sonido.play();
-
-		//play controlando el sonido
-		//sonido.play(0.5f);
+		stage= new Stage();
 
 
-		//en loop cada 5 segundos
+		//si metes el touch de arriba o haces los input por eventos o si despues quieres tener un interfaz y no choquen los botones
+		Gdx.input.setInputProcessor(stage);
 
-		//no sólo puedes meter el loop en long, tambien puedes meter un play,etc
-//		idSonidoContinua = sonido.loop();
-//		Timer.schedule(new Timer.Task(){
-//			@Override
-//			public void run(){
-//				sonido.stop(idSonidoContinua);
-//			}
-//		}, 5.0f);
-
-		//cambiar el volumen con id
-		//sonido.setPitch(idSonidoContinua,0.5f);
-
-		//cambiar el volumen y tenerlo en estereo (primer valor oido derecho , segundo el izquierdo)
-		//sonido.setPan(idSonidoContinua, 1,1);
-//-------------------------------------------------------------------------------------------------------------------------
-		//musica
-
-		musica.play();
-
-		musica.setVolume(1.0f);
-		musica.pause();
-		musica.stop();
-		musica.play();
-		//te devuelve en que segundo está la cancion
-		Gdx.app.log("SONG",Float.toString(musica.getPosition()));
-
+		MyActor myActor = new MyActor();
+		//necesario por si clicla encima
+		//myActor.setTouchable(Touchable.enabled);
+		stage.addActor(myActor);
 	}
 
 	@Override
@@ -87,13 +93,15 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		batch.setProjectionMatrix(cam.combined);
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
 
 
+		//batch.setProjectionMatrix(cam.combined);
 
-		cam.update();
-		batch.begin();
-		batch.end();
+		//cam.update();
+		//batch.begin();
+		//batch.end();
 	}
 
 
@@ -101,9 +109,8 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-		batch.dispose();
-		//sonido.dispose();
-		musica.dispose();
+		//batch.dispose();
+		stage.dispose();
 	}
 
 }
