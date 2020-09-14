@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Timer;
 
@@ -28,18 +29,11 @@ public class Game extends ApplicationAdapter {
 
 		Sprite spritPlayer= new Sprite(textPlayer);
 
-		float actorx=0;
+
 
 		public MyActor(){
-			//necesario para cliclar encima de el
-			//setBounds(actorx,0,textPlayer.getWidth(),textPlayer.getHeight());
-
-			/*addListener(new InputListener(){
-				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-					((MyActor)event.getTarget()).started = true;
-					return true;
-				}
-			});*/
+			//necesario para cliclar encima de el (o colisiones???)
+			setBounds(0,0,textPlayer.getWidth(),textPlayer.getHeight());
 
 		}
 
@@ -47,25 +41,19 @@ public class Game extends ApplicationAdapter {
 
 		@Override
 		public void draw(Batch batch, float parentAlpha) {
+			spritPlayer.setPosition(this.getX(),getY());
 			spritPlayer.draw(batch);
-			//batch.draw(textPlayer,actorx,0);
+
 		}
 
-		@Override
+		/*@Override
 		public void act(float delta) {
 
-			if(Gdx.input.isKeyPressed(Input.Keys.A)){
-				actorx=100;
-				spritPlayer.translateX(actorx);
-			}
 
-		}
+		}*/
 	}
 
 	private Stage stage;
-
-
-
 
 	//public static void main (String[] args) throws Exception {
 	//	TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "movimiento");
@@ -83,8 +71,13 @@ public class Game extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(stage);
 
 		MyActor myActor = new MyActor();
-		//necesario por si clicla encima
-		//myActor.setTouchable(Touchable.enabled);
+
+		//le marcamos las acciones y la duracion de estas
+		MoveToAction moveAction = new MoveToAction();
+		moveAction.setPosition(300f, 0f);
+		moveAction.setDuration(10f);
+		myActor.addAction(moveAction);
+
 		stage.addActor(myActor);
 	}
 
@@ -96,7 +89,7 @@ public class Game extends ApplicationAdapter {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-
+//-----------------------------------------------------------------------------------------------------------------------
 		//batch.setProjectionMatrix(cam.combined);
 
 		//cam.update();
