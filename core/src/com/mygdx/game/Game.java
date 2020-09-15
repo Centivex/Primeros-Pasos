@@ -14,9 +14,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Timer;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 
 public class Game extends ApplicationAdapter {
@@ -38,19 +40,25 @@ public class Game extends ApplicationAdapter {
 		}
 
 
-
 		@Override
 		public void draw(Batch batch, float parentAlpha) {
-			spritPlayer.setPosition(this.getX(),getY());
+
 			spritPlayer.draw(batch);
 
 		}
 
-		/*@Override
+		@Override
 		public void act(float delta) {
+			super.act(delta);
+			//mirar si esto es importante :
+			/*for(Iterator<Action> iter = this.getActions().iterator(); iter.hasNext();){
+				iter.next().act(delta);
+			}*/
 
-
-		}*/
+			spritPlayer.setPosition(this.getX(),getY());
+			spritPlayer.setRotation(this.getRotation());
+			spritPlayer.setScale(this.getScaleX(),getScaleY());
+		}
 	}
 
 	private Stage stage;
@@ -72,11 +80,38 @@ public class Game extends ApplicationAdapter {
 
 		MyActor myActor = new MyActor();
 
+		//si quieres hacer una secuencia:
+		SequenceAction sequenceAction = new SequenceAction();
+
 		//le marcamos las acciones y la duracion de estas
 		MoveToAction moveAction = new MoveToAction();
+		RotateToAction rotateAction = new RotateToAction();
+		ScaleToAction scaleAction = new ScaleToAction();
+		DelayAction delayAction= new DelayAction();
+
 		moveAction.setPosition(300f, 0f);
-		moveAction.setDuration(10f);
-		myActor.addAction(moveAction);
+		moveAction.setDuration(5f);
+		rotateAction.setRotation(90f);
+		rotateAction.setDuration(5f);
+		scaleAction.setScale(0.5f);
+		scaleAction.setDuration(5f);
+		delayAction.setDuration(5f);
+
+
+		/*myActor.addAction(moveAction);
+		myActor.addAction(rotateAction);
+		myActor.addAction(scaleAction);*/
+
+		//si quieres secuencia
+		sequenceAction.addAction(scaleAction);
+		sequenceAction.addAction(delayAction);
+		sequenceAction.addAction(rotateAction);
+		sequenceAction.addAction(moveAction);
+
+		myActor.addAction(sequenceAction);
+
+		//en paralelo
+		//myActor.addAction(parallel(scaleTo(0.5f,0.5f,5f),rotateTo(90.0f,5f),moveTo(300.0f,0f,5f)));
 
 		stage.addActor(myActor);
 	}
