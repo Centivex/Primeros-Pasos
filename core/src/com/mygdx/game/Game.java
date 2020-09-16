@@ -24,48 +24,13 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class Game extends ApplicationAdapter {
 	//SpriteBatch batch;
 	//private OrthographicCamera cam;
-
-	public  class MyActor extends Actor{
-
-		Texture textPlayer= new Texture("Player/caminar_abajo_1.png");
-
-		Sprite spritPlayer= new Sprite(textPlayer);
-
-
-
-		public MyActor(){
-			//necesario para cliclar encima de el (o colisiones???)
-			setBounds(0,0,textPlayer.getWidth(),textPlayer.getHeight());
-
-		}
-
-
-		@Override
-		public void draw(Batch batch, float parentAlpha) {
-
-			spritPlayer.draw(batch);
-
-		}
-
-		@Override
-		public void act(float delta) {
-			super.act(delta);
-			//mirar si esto es importante :
-			/*for(Iterator<Action> iter = this.getActions().iterator(); iter.hasNext();){
-				iter.next().act(delta);
-			}*/
-
-			spritPlayer.setPosition(this.getX(),getY());
-			spritPlayer.setRotation(this.getRotation());
-			spritPlayer.setScale(this.getScaleX(),getScaleY());
-		}
-	}
-
+	
 	private Stage stage;
+	private  Group group;
 
-	//public static void main (String[] args) throws Exception {
-	//	TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "movimiento");
-	//}
+	/*public static void main (String[] args) throws Exception {
+		TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "llevar");
+	}*/
 
 	@Override
 	public void create () {
@@ -74,46 +39,24 @@ public class Game extends ApplicationAdapter {
 
 		stage= new Stage();
 
-
 		//si metes el touch de arriba o haces los input por eventos o si despues quieres tener un interfaz y no choquen los botones
 		Gdx.input.setInputProcessor(stage);
 
-		MyActor myActor = new MyActor();
 
-		//si quieres hacer una secuencia:
-		SequenceAction sequenceAction = new SequenceAction();
+		Player player = new Player();
+		player.setBounds(player.getX(),player.getY(),player.spritPlayer.getWidth(),player.spritPlayer.getHeight());
 
-		//le marcamos las acciones y la duracion de estas
-		MoveToAction moveAction = new MoveToAction();
-		RotateToAction rotateAction = new RotateToAction();
-		ScaleToAction scaleAction = new ScaleToAction();
-		DelayAction delayAction= new DelayAction();
+		Jarron jarron = new Jarron();
+		jarron.setBounds(0,0,jarron.getWidth(),jarron.getHeight());
+		jarron.setPosition(player.getWidth()-25,0);
 
-		moveAction.setPosition(300f, 0f);
-		moveAction.setDuration(5f);
-		rotateAction.setRotation(90f);
-		rotateAction.setDuration(5f);
-		scaleAction.setScale(0.5f);
-		scaleAction.setDuration(5f);
-		delayAction.setDuration(5f);
+		group = new Group();
+		group.addActor(player);
+		group.addActor(jarron);
 
+		group.addAction(parallel(moveTo(200,0,5),rotateBy(90,5)));
 
-		/*myActor.addAction(moveAction);
-		myActor.addAction(rotateAction);
-		myActor.addAction(scaleAction);*/
-
-		//si quieres secuencia
-		sequenceAction.addAction(scaleAction);
-		sequenceAction.addAction(delayAction);
-		sequenceAction.addAction(rotateAction);
-		sequenceAction.addAction(moveAction);
-
-		myActor.addAction(sequenceAction);
-
-		//en paralelo
-		//myActor.addAction(parallel(scaleTo(0.5f,0.5f,5f),rotateTo(90.0f,5f),moveTo(300.0f,0f,5f)));
-
-		stage.addActor(myActor);
+		stage.addActor(group);
 	}
 
 	@Override
