@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,8 +11,11 @@ public class Jarron extends Actor {
     Texture textJarron= new Texture("Player/jarron.png");
     Sprite spritJarron= new Sprite(textJarron);
 
-    public Jarron(){
+    public Player player;
 
+    public Jarron(Player player){
+        setBounds(0,0,spritJarron.getWidth(),spritJarron.getHeight());
+        this.player=player;
     }
 
     @Override
@@ -27,10 +31,8 @@ public class Jarron extends Actor {
 				iter.next().act(delta);
 			}*/
 
-        spritJarron.setPosition(this.getX(),getY());
-        spritJarron.setRotation(this.getRotation());
-        spritJarron.setScale(this.getScaleX(),getScaleY());
 
+        spritJarron.setPosition(player.spritPlayer.getX()+player.spritPlayer.getWidth()-25,0);
 
     }
 }

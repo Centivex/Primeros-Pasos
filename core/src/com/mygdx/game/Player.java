@@ -14,7 +14,7 @@ public class Player extends Actor {
 
     public Player(){
         //necesario para cliclar encima de el (o colisiones???)
-       // setBounds(spritPlayer.getX(),spritPlayer.getY(),spritPlayer.getWidth(),spritPlayer.getHeight());
+       setBounds(this.getX(),this.getY(),spritPlayer.getWidth(),spritPlayer.getHeight());
 
     }
 
@@ -31,10 +31,9 @@ public class Player extends Actor {
 				iter.next().act(delta);
 			}*/
 
-        spritPlayer.setPosition(this.getX(),getY());
-        spritPlayer.setRotation(this.getRotation());
-        spritPlayer.setScale(this.getScaleX(),getScaleY());
-
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            spritPlayer.translateX(10);
+        }
 
     }
 }
