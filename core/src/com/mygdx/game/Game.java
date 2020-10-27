@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,15 +27,14 @@ import com.badlogic.gdx.utils.Timer;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
+import com.badlogic.gdx.physics.box2d.*;
 
-public class Game extends ApplicationAdapter {
 
-	private OrthographicCamera cam;
-	private TiledMap tiledMap;
-	private TiledMapRenderer tiledMapRenderer;
+public class Game extends com.badlogic.gdx.Game {
 
-	//private Stage stage;
 
+
+	public SpriteBatch bacth;
 
 	/*public static void main (String[] args) throws Exception {
 		TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "llevar");
@@ -43,40 +43,14 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		//float w = Gdx.graphics.getWidth();
-		//float h = Gdx.graphics.getHeight();
-		cam = new OrthographicCamera();
-		cam.setToOrtho(false,256,256);
-		cam.update();
-
-		tiledMap= new TmxMapLoader().load("Mapa/Prado.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
-
-
+		bacth=new SpriteBatch();
+		setScreen(new PlayScreen(this));
 
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			cam.translate(-16,0);
-		}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			cam.translate(16,0);
-		}else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			cam.translate(0,16);
-		}else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			cam.translate(0,-16);
-		}
-
-		cam.update();
-		tiledMapRenderer.setView(cam);
-		tiledMapRenderer.render();
-
+		super.render();
 	}
 
 
