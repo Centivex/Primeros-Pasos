@@ -1,11 +1,16 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -17,22 +22,22 @@ public class PlayScreen implements Screen {
     Texture textPlayer;
     Sprite spritPlayer;
 
-    World world;
-    Body body;
+    //World world;
+    //Body body;
 
     //private Stage stage;
-    //private TiledMap tiledMap;
-    //private TiledMapRenderer tiledMapRenderer;
+    private TiledMap tiledMap;
+    private TiledMapRenderer tiledMapRenderer;
 
     public PlayScreen(Game juego){
         this.juego=juego;
 
-        /*cam = new OrthographicCamera();
+        cam = new OrthographicCamera();
 		cam.setToOrtho(false,256,256);
-		cam.update();*/
+		cam.update();
 
-		/*tiledMap= new TmxMapLoader().load("Mapa/Prado.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);*/
+		tiledMap= new TmxMapLoader().load("Mapa/Prado.tmx");
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         textPlayer= new Texture("Player/caminar_abajo_1.png");
         spritPlayer= new Sprite(textPlayer);
@@ -40,9 +45,9 @@ public class PlayScreen implements Screen {
                 Gdx.graphics.getHeight() / 2);
 
 
-        world = new World(new Vector2(0, -98f), true);
+        //world = new World(new Vector2(0, 0), true);
 
-        BodyDef bodyDef = new BodyDef();
+        /*BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(spritPlayer.getX(), spritPlayer.getY());
 
@@ -54,7 +59,7 @@ public class PlayScreen implements Screen {
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
         Fixture fixture = body.createFixture(fixtureDef);
-        shape.dispose();
+        shape.dispose();*/
     }
 
     @Override
@@ -68,7 +73,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-		/*if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			cam.translate(-16,0);
 		}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 			cam.translate(16,0);
@@ -78,15 +83,15 @@ public class PlayScreen implements Screen {
 			cam.translate(0,-16);
 		}
 
-		cam.update();*/
-	/*	tiledMapRenderer.setView(cam);
-		tiledMapRenderer.render();*/
+		cam.update();
+		tiledMapRenderer.setView(cam);
+		tiledMapRenderer.render();
 
-        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        spritPlayer.setPosition(body.getPosition().x, body.getPosition().y);
+        //world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+        //spritPlayer.setPosition(body.getPosition().x, body.getPosition().y);
 
 
-        //bacth.setProjectionMatrix(cam.combined);
+        juego.bacth.setProjectionMatrix(cam.combined);
         juego.bacth.begin();
         spritPlayer.draw(juego.bacth);
         juego.bacth.end();
@@ -115,7 +120,7 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
         textPlayer.dispose();
-        world.dispose();
+        //world.dispose();
 
     }
 }
