@@ -26,6 +26,8 @@ public class Player extends Actor {
        setOrigin(0,0);
     }
 
+
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
 

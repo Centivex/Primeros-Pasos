@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class PlayScreen implements Screen {
+public class PlayScreen extends BaseScreen {
     private Game juego;
 
 
@@ -29,7 +29,7 @@ public class PlayScreen implements Screen {
 
 
     public PlayScreen(Game juego){
-        this.juego=juego;
+        super(juego);
 
         cam=new Camara();
         jugador1=new Player();
@@ -65,26 +65,6 @@ public class PlayScreen implements Screen {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
 
     }
 

@@ -32,10 +32,6 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Game extends com.badlogic.gdx.Game {
 
-
-
-	public SpriteBatch bacth;
-
 	/*public static void main (String[] args) throws Exception {
 		TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "llevar");
 	}*/
@@ -43,21 +39,7 @@ public class Game extends com.badlogic.gdx.Game {
 	@Override
 	public void create () {
 
-		bacth=new SpriteBatch();
-		setScreen(new PlayScreen(this));
-
-	}
-
-	@Override
-	public void render () {
-		super.render();
-	}
-
-
-
-
-	@Override
-	public void dispose () {
+		setScreen(new Box2dScreen(this));
 
 	}
 
