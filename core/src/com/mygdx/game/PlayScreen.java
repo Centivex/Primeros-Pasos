@@ -31,14 +31,16 @@ public class PlayScreen implements Screen {
     public PlayScreen(Game juego){
         this.juego=juego;
 
-
-        stage= new Stage();
-        Gdx.input.setInputProcessor(stage);
-
         cam=new Camara();
         jugador1=new Player();
-
         mapaZelda=new MapaZelda(cam.cam);
+
+        FitViewport viewp = new FitViewport(250, 250, cam.cam);
+        viewp.setScreenPosition(100,100);
+
+        stage= new Stage(viewp);
+        stage.setDebugAll(true);
+        Gdx.input.setInputProcessor(stage);
 
 
 

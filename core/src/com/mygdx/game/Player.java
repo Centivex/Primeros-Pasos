@@ -21,6 +21,9 @@ public class Player extends Actor {
        setBounds(this.getX(),this.getY(),spritPlayer.getWidth(),spritPlayer.getHeight());
        spritPlayer.setPosition(-spritPlayer.getWidth()/2, -spritPlayer.getHeight()/2);
 
+       setSize(spritPlayer.getWidth(), spritPlayer.getHeight());
+       setPosition(spritPlayer.getX(), spritPlayer.getY());
+       setOrigin(0,0);
     }
 
     @Override
@@ -33,13 +36,19 @@ public class Player extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
+
+
+
         //mirar si esto es importante :
 			/*for(Iterator<Action> iter = this.getActions().iterator(); iter.hasNext();){
 				iter.next().act(delta);
 			}*/
 
+
+
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            spritPlayer.translate(10,10);
+            setX(getX()+10);
+            spritPlayer.setX(getX());
         }
 
 
