@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.Timer;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Pruebas.Box2dScreen;
 
 
 public class Game extends com.badlogic.gdx.Game {
