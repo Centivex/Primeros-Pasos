@@ -31,7 +31,7 @@ public class Jarron extends Actor {
 			}*/
 
 
-        spritJarron.setPosition(player.spritPlayer.getX()+player.spritPlayer.getWidth()-25,0);
+        //spritJarron.setPosition(player.spritPlayer.getX()+player.spritPlayer.getWidth()-25,0);
 
     }
 }

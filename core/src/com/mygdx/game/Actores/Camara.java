@@ -11,7 +11,7 @@ public class Camara extends Actor {
     public OrthographicCamera cam;
 
     public Camara(){
-        cam = new OrthographicCamera(256,256);
+        cam = new OrthographicCamera();
         //cam.setToOrtho(false,256,256);
 
     }

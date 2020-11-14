@@ -22,21 +22,24 @@ public class Player extends Actor {
         this.world=world;
 
 
-       spritPlayer.setPosition(-spritPlayer.getWidth()/2, -spritPlayer.getHeight()/2);
-       setSize(90, 90);
-       setPosition(spritPlayer.getX(), spritPlayer.getY());
-       setOrigin(0,0);
+        spritPlayer.setSize(16+24,16+24);
 
-//-----------------------------------------------------------------------------------------
         BodyDef def= new BodyDef();
-        def.position.set(0,0.5f);
+        def.position.set(spritPlayer.getWidth()/2,spritPlayer.getHeight()/2);
         def.type= BodyDef.BodyType.DynamicBody;
         body= world.createBody(def);
 
+
         PolygonShape playerShape= new PolygonShape();
-        playerShape.setAsBox(0.5f,0.5f);
-        fixture= body.createFixture(playerShape,3);
+        playerShape.setAsBox(5,5f);
+        fixture= body.createFixture(playerShape,1);
         playerShape.dispose();
+
+
+
+        //spritPlayer.setPosition(-spritPlayer.getWidth()/2, -spritPlayer.getHeight()/2);
+        setSize(spritPlayer.getWidth()-24,spritPlayer.getHeight()-24);
+        setPosition(spritPlayer.getX()+12,spritPlayer.getY()+12);
 
     }
 
@@ -53,10 +56,17 @@ public class Player extends Actor {
     public void act(float delta) {
         super.act(delta);
 
-        setPosition(body.getPosition().x*90,body.getPosition().y*90);
-
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            setX(getX()+10);
+            setY(getY()+4);
+            spritPlayer.setY(getY());
+        }if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            setY(getY()-4);
+            spritPlayer.setY(getY());
+        }if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            setX(getX()-4);
+            spritPlayer.setX(getX());
+        }if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            setX(getX()+4);
             spritPlayer.setX(getX());
         }
 

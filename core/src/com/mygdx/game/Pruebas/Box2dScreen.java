@@ -87,6 +87,7 @@ public class Box2dScreen extends BaseScreen {
         circuloBody=world.createBody(circleDef);
 
 
+
         //------------------------------------------------------------------
         //le damos forma al cuerpo
         PolygonShape playerShape= new PolygonShape();
@@ -102,6 +103,8 @@ public class Box2dScreen extends BaseScreen {
         circuloFixture= circuloBody.createFixture(circleShape,1);
         circleShape.dispose();
 
+
+        circuloFixture.setSensor(true);
         //----------------------------------------------------------------
         //meter userdata para las colisiones
         playerFixture.setUserData("player");

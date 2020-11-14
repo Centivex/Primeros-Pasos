@@ -10,10 +10,10 @@ public class DesktopLauncher {
 
         config.title = "camera";
 
-/*
-        config.width = 1280;
 
-        config.height = 720;*/
+       /* config.width = 640;
+
+        config.height = 480;*/
 
 		new LwjglApplication(new Game(), config);
 	}

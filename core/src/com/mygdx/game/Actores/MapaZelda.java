@@ -21,7 +21,7 @@ public class MapaZelda extends Actor {
         this.cam=cam;
         tiledMap= new TmxMapLoader().load("Mapa/Prado.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
+        
     }
 
     public void dibuja(){

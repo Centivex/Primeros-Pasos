@@ -20,27 +20,32 @@ public class PlayScreen extends BaseScreen {
     public Camara cam;
 
     private World world;
+    private Box2DDebugRenderer renderer;
 
 
     public PlayScreen(Game juego){
         super(juego);
 
         world= new World(new Vector2(0,0), true);
+        renderer=new Box2DDebugRenderer();
 
 
         cam=new Camara();
         jugador1=new Player(world);
-        //mapaZelda=new MapaZelda(cam.cam);
+        mapaZelda=new MapaZelda(cam.cam);
 
-        FitViewport viewp = new FitViewport(250, 250, cam.cam);
-        viewp.setScreenPosition(100,100);
+
+        //------------------------------------------------------------------------------------------------------
+        FitViewport viewp = new FitViewport(640, 360, cam.cam);
+
 
         stage= new Stage(viewp);
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
         Gdx.input.setInputProcessor(stage);
 
+        //---------------------------------------------------------------------------------------------------------
         stage.addActor(cam);
-        //stage.addActor(mapaZelda);
+        stage.addActor(mapaZelda);
         stage.addActor(jugador1);
 
 
@@ -57,11 +62,12 @@ public class PlayScreen extends BaseScreen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        world.step(delta,6,2);
-        //mapaZelda.dibuja();
+        //world.step(delta,6,2);
+        mapaZelda.dibuja();
         stage.act(Gdx.graphics.getDeltaTime());
+        world.step(1/60,6,2);
         stage.draw();
-
+        renderer.render(world,cam.cam.combined);
 
     }
 
