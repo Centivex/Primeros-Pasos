@@ -22,7 +22,8 @@ public class Player extends Actor {
         this.world=world;
 
 
-        spritPlayer.setSize(16+24,16+24);
+        spritPlayer.setRegion(13,10,14,23);
+        spritPlayer.setSize((textPlayer.getWidth()-24)/100f,(textPlayer.getHeight()-24)/100f);
 
         BodyDef def= new BodyDef();
         def.position.set(spritPlayer.getWidth()/2,spritPlayer.getHeight()/2);
@@ -31,16 +32,15 @@ public class Player extends Actor {
 
 
         PolygonShape playerShape= new PolygonShape();
-        playerShape.setAsBox(5,5f);
+        playerShape.setAsBox(5/100f,5/100f);
         fixture= body.createFixture(playerShape,1);
         playerShape.dispose();
 
 
 
-        //spritPlayer.setPosition(-spritPlayer.getWidth()/2, -spritPlayer.getHeight()/2);
-        setSize(spritPlayer.getWidth()-24,spritPlayer.getHeight()-24);
-        setPosition(spritPlayer.getX()+12,spritPlayer.getY()+12);
-
+        spritPlayer.setPosition(0, 0);
+        setSize(spritPlayer.getWidth(),spritPlayer.getHeight());
+        setPosition(spritPlayer.getX(),spritPlayer.getY());
     }
 
 
@@ -56,20 +56,24 @@ public class Player extends Actor {
     public void act(float delta) {
         super.act(delta);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            setY(getY()+4);
-            spritPlayer.setY(getY());
-        }if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            setY(getY()-4);
-            spritPlayer.setY(getY());
-        }if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            setX(getX()-4);
-            spritPlayer.setX(getX());
-        }if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            setX(getX()+4);
-            spritPlayer.setX(getX());
-        }
 
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                body.setLinearVelocity(-1, 0);
+
+            }else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            body.setLinearVelocity(1, 0);
+
+            }else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                body.setLinearVelocity(0, 1);
+
+            }else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                body.setLinearVelocity(0, -1);
+
+            }
+            else {
+                body.setLinearVelocity(0, 0);
+            }
+            spritPlayer.setPosition(body.getPosition().x - 0.1f, body.getPosition().y - 0.1f);
 
 
     }
