@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.backends.lwjgl.audio.Mp3;
@@ -33,12 +34,21 @@ import com.mygdx.game.Pruebas.Box2dScreen;
 
 public class Game extends com.badlogic.gdx.Game {
 
+	private AssetManager manager;
+
 	/*public static void main (String[] args) throws Exception {
 		TexturePacker.process("C:\\Users\\abran\\Desktop\\pruebafusion", "C:\\Users\\abran\\Desktop\\pruebafusion\\fusion", "llevar");
 	}*/
 
+	public AssetManager getManager() {
+		return manager;
+	}
+
 	@Override
 	public void create () {
+		manager=new AssetManager();
+		manager.load("Player/caminar_abajo_1.png",Texture.class);
+		manager.finishLoading();
 
 		setScreen(new PlayScreen(this));
 

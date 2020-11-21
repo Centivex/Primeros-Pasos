@@ -11,16 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends Actor {
 
-    Texture textPlayer= new Texture("Player/caminar_abajo_1.png");
-    Sprite spritPlayer= new Sprite(textPlayer);
+    Texture textPlayer;
+    Sprite spritPlayer;
 
     World world;
     Body body;
     Fixture fixture;
 
-    public Player(World world ){
+    public Player(World world, Texture texturePlayer ){
+        this.textPlayer=texturePlayer;
         this.world=world;
 
+        spritPlayer= new Sprite(textPlayer);
 
         spritPlayer.setRegion(13,10,14,23);
         spritPlayer.setSize((textPlayer.getWidth()-24)/100f,(textPlayer.getHeight()-24)/100f);

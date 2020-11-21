@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,6 +13,8 @@ import com.mygdx.game.Actores.Player;
 
 public class PlayScreen extends BaseScreen {
     private Game juego;
+
+    Texture texPlayer;
 
 
     private Stage stage;
@@ -26,12 +29,14 @@ public class PlayScreen extends BaseScreen {
     public PlayScreen(Game juego){
         super(juego);
 
+        texPlayer= juego.getManager().get("Player/caminar_abajo_1.png");
+
         world= new World(new Vector2(0,0), true);
         b2render=new Box2DDebugRenderer();
 
 
         cam=new Camara();
-        jugador1=new Player(world);
+        jugador1=new Player(world, texPlayer);
         mapaZelda=new MapaZelda(cam.cam, world);
 
 
